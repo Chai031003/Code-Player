@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -56,7 +57,7 @@
             padding: 5px;
         }
         .ui-tabs-nav li a {
-            color: black !important;
+            color: white;
             padding: 10px;
         }
         .ui-tabs-active a {
@@ -81,7 +82,6 @@
             padding: 10px;
             font-size: 14px;
             resize: vertical;
-            box-sizing: border-box;
         }
         #outputSection {
             margin-top: 20px;
@@ -108,20 +108,19 @@
             border: none;
         }
     </style>
+
     <script>
-        $(function() {
+        $(document).ready(function() {
             $("#tabs").tabs(); 
 
             $("#run").click(function() {
                 let htmlCode = $("#html").val();
                 let cssCode = "<style>" + $("#css").val() + "</style>";
-                let jsCode = "<script>" + $("#js").val() + "<\\/script>";
+                let jsCode = "<script>" + $("#js").val() + "<\/script>";
 
-                let resultFrame = document.getElementById('resultFrame').contentWindow.document;
-                resultFrame.open();
-                resultFrame.write(htmlCode + cssCode + jsCode); 
-                resultFrame.close();
-                
+                let resultFrame = document.getElementById('resultFrame');
+                resultFrame.srcdoc = htmlCode + cssCode + jsCode;
+
                 $("#outputSection").slideDown(500).animate({ opacity: 1 }, { queue: false, duration: 500 });
             });
         });
