@@ -56,7 +56,7 @@
             padding: 5px;
         }
         .ui-tabs-nav li a {
-            color: white;
+            color: black !important;
             padding: 10px;
         }
         .ui-tabs-active a {
@@ -81,6 +81,7 @@
             padding: 10px;
             font-size: 14px;
             resize: vertical;
+            box-sizing: border-box;
         }
         #outputSection {
             margin-top: 20px;
@@ -114,16 +115,14 @@
             $("#run").click(function() {
                 let htmlCode = $("#html").val();
                 let cssCode = "<style>" + $("#css").val() + "</style>";
-                let jsCode = $("#js").val();
+                let jsCode = "<script>" + $("#js").val() + "<\\/script>";
+
                 let resultFrame = document.getElementById('resultFrame').contentWindow.document;
                 resultFrame.open();
-                resultFrame.write(htmlCode + cssCode);
+                resultFrame.write(htmlCode + cssCode + jsCode); 
                 resultFrame.close();
                 
-                setTimeout(() => {
-                    document.getElementById('resultFrame').contentWindow.eval(jsCode);
-                    $("#outputSection").slideDown(500).animate({ opacity: 1 }, { queue: false, duration: 500 });
-                }, 500);
+                $("#outputSection").slideDown(500).animate({ opacity: 1 }, { queue: false, duration: 500 });
             });
         });
     </script>
